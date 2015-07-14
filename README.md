@@ -1,6 +1,6 @@
 # MultiStage
 
-TODO: Write a gem description
+Transform coordinate among spaces
 
 ## Installation
 
@@ -19,9 +19,19 @@ Or install it yourself as:
     $ gem source -a http://dream.misasa.okayama-u.ac.jp/rubygems
     $ gem install multi_stage
 
+## Commands
+
+Commands are summarized as:
+
+| command     | description                       | note  |
+| ----------- | --------------------------------- | ----- |
+| spots-warp  | Transform coordinate among spaces |       |
+
 ## Usage
 
-TODO: Write usage instructions here
+See online document:
+
+    $ spots-warp --help
 
 ## Contributing
 
