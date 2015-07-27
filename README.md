@@ -2,11 +2,11 @@
 
 Transform coordinate among spaces
 
-## Dependency
+# Dependency
 
-### [opencvtool](http://devel.misasa.okayama-u.ac.jp/gitlab/gems/opencvtool/tree/master "follow instruction")
+## [opencvtool](http://devel.misasa.okayama-u.ac.jp/gitlab/gems/opencvtool/tree/master "follow instruction")
 
-## Installation
+# Installation
 
 Add this line to your application's Gemfile:
 
@@ -23,7 +23,7 @@ Or install it yourself as:
     $ gem source -a http://dream.misasa.okayama-u.ac.jp/rubygems
     $ gem install multi_stage
 
-## Commands
+# Commands
 
 Commands are summarized as:
 
@@ -31,13 +31,13 @@ Commands are summarized as:
 | ----------- | --------------------------------- | ----- |
 | spots-warp  | Transform coordinate among spaces |       |
 
-## Usage
+# Usage
 
 See online document:
 
     $ spots-warp --help
 
-## Contributing
+# Contributing
 
 1. Fork it ( https://github.com/[my-github-username]/multi_stage/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
