@@ -4,7 +4,7 @@ Transform coordinate among spaces
 
 # Dependency
 
-## [opencvtool](http://devel.misasa.okayama-u.ac.jp/gitlab/gems/opencvtool/tree/master "follow instruction")
+## [gem package -- opencvtool](http://devel.misasa.okayama-u.ac.jp/gitlab/gems/opencvtool/tree/master "follow instruction")
 
 # Installation
 
