@@ -8,7 +8,7 @@ module Dimensions
   def self.length(filename)
     self.dimensions(filename).max
   end
-  
+
   def self.normalized_dimensions(filename)
     d = self.dimensions(filename)
     l = self.length(filename)
@@ -35,7 +35,7 @@ class Array
           collection.each_slice(number) { |group| groups << group }
           groups
         end
-      end  
+      end
 end
 
 module MultiStage
@@ -131,38 +131,61 @@ NAME
     #{opts.program_name} - Transform coordinate among spaces
 
 SYNOPSIS AND USAGE
-    #{opts.program_name} [options] stagelist
+    #{opts.program_name} [options] stagelist.txt
 
 DESCRIPTION
     Transform coordinate among spaces.  With Affine matrix, coordinate
     are transformed.  The affine matrix can be specified by
     geometryfile with Affine matrix or inline expression of matrix.
-    With identity matrix, this serves as format converter.
 
-    This is especially useful to convert between stage coordinate of
-    certain device and global coordinate in VisualStage 2007.
+    As of March 30, 2018, #{opts.program_name} accepts `stagelist.txt'
+    format that is format for a file exported from VisualStage 2007
+    and `cha' format.  With identity matrix, this serves as format
+    converter.
+
+    This is useful to convert between stage coordinate of certain
+    device and global coordinate in VisualStage 2007.
 
     When image is specified, this program assumes that there is
     geometryfile with it.
 
 EXAMPLE
     $ vs-get-affine > stagelist@1270.geo
-    $ spots-warp stagelist@1270.org -o stagelist.txt -a stagelist@1270.geo
+    $ spots-warp stagelist@1270.txt -o stagelist.txt -a stagelist@1270.geo
 
     $ spots-warp stagelist@5f.cha -o stagelist.txt -a stagelist@5f.geo
     $ spots-warp stagelist.txt -o stagelist@5f.cha -a stagelist@5f.geo -i
 
+    To import spots described in relative corrdinates created by
+    `spots.m' using imageometry file by `vs_attach_image.m', follow an
+    expamle shown blow.  Create `site5-1.txt' manually using
+    xy-on-image corrdinates that are stored in `site-5-1.pml~'.  Then
+    create `site-5-1.stagelist.txt' to be imported to VisualStage
+    2007.
+
+    $ ls
+    site-5-1.jpg site-5-1.geo site-5-1.pml~ site5-1.txt
+    $ cat site-5-1.txt
+    Class	Name	X-Locate	Y-Locate	Data
+    0	site-5-1 Ol	16.796875	19.140625	
+    0	site-5-1 Aug	-15.859375	4.06249999999999	
+    0	site-5-1 Lpx	6.64062499999999	-13.671875	
+    0	site-5-1 graphite	4.37499999999999	-6.09375000000001	
+    $ spots-warp site-5-1.txt -a site-5-1.geo > site-5-1.stagelist.txt
+
 SEE ALSO
-    vs-warp-spots-1270
-    vs-get-affine
+    vs-warp-spots-1270 in `gem package -- vstool'
+    vs-get-affine in `gem package -- vstool'
+    image-get-affine in `python package -- opencvtool'
     vs2cha
     cha2vs
 
 IMPLEMENTATION
-    Copyright (c) 2012 ISEI, Okayama University
-    Licensed under the same terms as Ruby
+    Copyright (c) 2012,2018 Okayama University
+	License GPLv3+: GNU GPL version 3 or later
 
 HISTORY
+    March 30, 2018: Documantation corrected.
     April 10, 2015: Rename warp_spots as #{File.basename($0, '.*')}.
     May 25, 2015: Drop support for stagelist.spot
 
@@ -171,20 +194,20 @@ EOS
 				opts.on("-v", "--[no-]verbose", "Run verbosely") do |v|
 					params[:verbose] = v
 				end
-				  
+
 				opts.on("-i", "--inverse", "Use inverse affine matrix") do |v|
 					params[:inverse] = v
-				end 
+				end
 
 				opts.on("-g", "--image-file image-file", "Specify image file") do |v|
 					params[:image_file] = v
-				end 
+				end
 
 				opts.on("-a", "--affine-file affine-file", "Specify affine matrix file") do |v|
 					params[:affine_file] = v
-				end 
-				  
-				opts.on("-m", "--affine-matrix a,b,c,d,e,f,g,h,i", Array, "Specify affine matrix [[a,b,c], [d,e,f], [g,h,i]]") do |v|
+				end
+
+				opts.on("-m", "--affine-matrix a,b,c,d,e,f,g,h,i", Array, "Specify affine matrix [a,b,c; d,e,f; g,h,i]") do |v|
 					v.concat([0, 0, 1]) if v.length == 6
 					if v.length != 9
 				 		puts "incorrect number of arguments for affine matrix"
@@ -193,28 +216,28 @@ EOS
 				    v.map!{|vv| vv.to_f}
 				    params[:affine_matrix] = Matrix[ v[0..2], v[3..5], v[6..8] ]
 				end
-				  
+
 				opts.on("-f", "--format FORMAT", [:txt, :csv, :org, :tex, :cha, :reflist],
-				            "Select format (txt, csv, org, tex, cha, reflist)") do |t|
+				            "Format of text onto standard output (txt, csv, org, tex, cha, reflist)") do |t|
 					params[:format] = t
 				end
 
-				opts.on("-o", "--output-file output-file", "Specify output file (.txt, .csv, .tex, .cha)") do |v|
+				opts.on("-o", "--output-file output-file", "Name of output file with exension that should be one of (.txt, .csv, .tex, .cha)") do |v|
 					params[:output_file] = v
-				end 
-				  
+				end
+
 				opts.on_tail("-h", "--help", "Show this message") do
 					puts opts
 				    exit
 				end
 			end
-			
+
 			options.parse!(argv)
 
 			unless argv.size == 1
 				puts options.to_s
 				exit
-			end 
+			end
 
 			points_path = argv[0]
 			timestamp = Time.now.strftime("%d-%b-%Y %H:%M:%S")
@@ -268,7 +291,7 @@ EOS
 			#   end
 			# end
 			# head = lines.shift.split("\t")
-			# 
+			#
 			# point_data = []
 			# lines.each do |line|
 			#   vals = line.split("\t")
@@ -299,7 +322,7 @@ EOS
 			  io.puts head.join(",")
 			  point_data.each do |point|
 			    io.puts line_items(point).join(",")
-			  end  
+			  end
 			when :org
 			  io.puts "|" + head.join("|") + "|"
 			  point_data.each do |point|
@@ -313,11 +336,11 @@ EOS
 			  normalized_dimensions = Dimensions.normalized_dimensions(params[:image_file])
 			  length = Dimensions.length(params[:image_file])
 			  point_data.each_with_index do |point, idx|
-			    point["X-Locate"] += normalized_dimensions[0]/2.0 
+			    point["X-Locate"] += normalized_dimensions[0]/2.0
 			    point["Y-Locate"] = normalized_dimensions[1] - (normalized_dimensions[1]/2.0 - point["Y-Locate"])
 			  	io.puts sprintf("%s\t%.3f\t%.3f\t%.3f\t%.3f\t\%.3f",point["Name"], point["X-Locate"], point["Y-Locate"], 0.3, 0.3, 0.0)
 			  end
-			    
+
 			when :tex
 			  unless params[:image_file]
 			    puts "Specify image-file with -g option"
@@ -333,7 +356,7 @@ EOS
 			  scale_length_on_stage = 10 ** (Math::log10(width_on_stage).round - 1)
 				scale_length_on_image = transform_length(affine_vs2ij, scale_length_on_stage).round
 			#  io.puts head.join("\t")
-			  
+
 			  io.puts '%----------------------------------'
 			  io.puts '%\\documentclass[12pt]{article}'
 			  io.puts '%\\usepackage[margin=0.5in,a4paper]{geometry}'
@@ -350,13 +373,13 @@ EOS
 			  io.puts sprintf(' \\begin{overpic}[width=\\textwidth]{%s}', params[:image_file])
 			  io.puts sprintf('  \\put(03.0,70.0){\\colorbox{white}{\\bf (a) \\data{%s}}}', basename)
 			  io.puts '  \\color{red}'
-			  
+
 			  point_data.each_with_index do |point, idx|
-			    #point["X-Locate"] += normalized_dimensions[0]/2.0 
+			    #point["X-Locate"] += normalized_dimensions[0]/2.0
 			    #point["Y-Locate"] -= normalized_dimensions[1]/2.0
-			    point["X-Locate"] += normalized_dimensions[0]/2.0 
+			    point["X-Locate"] += normalized_dimensions[0]/2.0
 			    point["Y-Locate"] = normalized_dimensions[1] - (normalized_dimensions[1]/2.0 - point["Y-Locate"])
-			    
+
 			    original = original_data[idx]
 			    image_coord = sprintf("\\put(%.1f,%.1f){\\footnotesize \\circle{0.7} \\onspot \\hrefdream{%s}{%s}}", point["X-Locate"], point["Y-Locate"], tex_escape(point["Data"]), tex_escape(point["Name"]))
 			  	world_coord = sprintf("\\vs(%.1f, %.1f)", original["X-Locate"], original["Y-Locate"])
@@ -371,14 +394,14 @@ EOS
 			  io.puts '\\end{figure}'
 			  io.puts '%\\end{document}'
 			  io.puts '%----------------------------------'
-			    
-			  
+
+
 			when :cha
 			  input = Hash.new
 			  input["tab"] = []
 			  input[:file] = params[:output_file]
 			  input[:nb_analyses] = point_data.size
-			  point_data.each do |point|  
+			  point_data.each do |point|
 			    h = Hash.new
 			    h["filename"] = point["Name"] + ".is"
 			    h["instr_file"] = point["Name"] + ".pri"
@@ -392,10 +415,10 @@ EOS
 			  def_chain.write(io)
 			when :reflist
 			#  head = Hash.new
-			  head = MultiStage::Cameca::ReflistHead.new 
+			  head = MultiStage::Cameca::ReflistHead.new
 			  head["size_of_struct_entete_enr"] = 8012
 			  head["size_of_struct_ibd_fil_stru_entete_cli"] = 240
-			  entete_cli = head["entete_cli"]  
+			  entete_cli = head["entete_cli"]
 			  entete_cli["ibd_fich_code"] = "REF"
 			  entete_cli["ibd_device_code"] = "IMS7F"
 			  entete_cli["ibd_version_code"] = "V1.0"
@@ -418,9 +441,9 @@ EOS
 			      t = Time.now
 			      ibd_ref.ibd_ref_com = point["Name"]
 			      ibd_ref.ibd_ref_dat = t.strftime("%Y/%m/%d:%H:%M:%S")
-			    
+
 			      ibd_ref.ibd_ref_posit.x = point["X-Locate"]
-			      ibd_ref.ibd_ref_posit.y = point["Y-Locate"] 
+			      ibd_ref.ibd_ref_posit.y = point["Y-Locate"]
 			    end
 			    count += 1
 			    lists << ibd_stru_enr_reflist
@@ -439,11 +462,11 @@ EOS
 
 			  head.write(io)
 			  if count == 0
-			    
+
 			  else
 			    lists[0].write(io)
 			  end
-			  
+
 			  if count > 1
 			    (count - 1).times do |idx|
 			      padding = MultiStage::Cameca::Padding10.new
@@ -452,7 +475,7 @@ EOS
 			    end
 			  end
 			#  ibd_stru_enr_reflist.write(io)
-			          
+
 			else
 			  io.puts YAML.dump(point_data)
 			end
