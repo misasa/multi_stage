@@ -158,20 +158,19 @@ EXAMPLE
 
     To import spots described in relative corrdinates created by
     `spots.m' using imageometry file by `vs_attach_image.m', follow an
-    expamle shown blow.  Create `site5-1.txt' manually using
-    xy-on-image corrdinates that are stored in `site-5-1.pml~'.  Then
-    create `site-5-1.stagelist.txt' to be imported to VisualStage
-    2007.
+    expamle shown blow.  Create `site5-1.xy-on-image.txt' manually
+    using xy-on-image corrdinates that are stored in `site-5-1.pml~'.
+    Then create `site-5-1.vs.txt' to be imported to VisualStage 2007.
 
     $ ls
-    site-5-1.jpg site-5-1.geo site-5-1.pml~ site5-1.txt
-    $ cat site-5-1.txt
+    site-5-1.jpg site-5-1.geo site-5-1.pml~ site5-1.xy-on-image.txt
+    $ cat site-5-1.xy-on-image.txt
     Class	Name	X-Locate	Y-Locate	Data
     0	site-5-1 Ol	16.796875	19.140625	
     0	site-5-1 Aug	-15.859375	4.06249999999999	
     0	site-5-1 Lpx	6.64062499999999	-13.671875	
     0	site-5-1 graphite	4.37499999999999	-6.09375000000001	
-    $ spots-warp site-5-1.txt -a site-5-1.geo > site-5-1.stagelist.txt
+    $ spots-warp site-5-1.xy-on-image.txt -a site-5-1.geo > site-5-1.vs.txt
 
 SEE ALSO
     vs-warp-spots-1270 in `gem package -- vstool'
