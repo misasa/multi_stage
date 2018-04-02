@@ -128,19 +128,19 @@ module MultiStage
 			opts.program_name = "spots-warp"
   			opts.banner = <<"EOS"
 NAME
-    #{opts.program_name} - Transform coordinate among spaces
+    #{opts.program_name} - Project coordinate to other space
 
 SYNOPSIS AND USAGE
     #{opts.program_name} [options] stagelist.txt
 
 DESCRIPTION
-    Transform coordinate among spaces.  With Affine matrix, coordinate
+    Project coordinate to other space.  With Affine matrix, coordinate
     are transformed.  The affine matrix can be specified by
     geometryfile with Affine matrix or inline expression of matrix.
 
     As of March 30, 2018, #{opts.program_name} accepts `stagelist.txt'
-    format that is format for a file exported from VisualStage 2007
-    and `cha' format.  With identity matrix, this serves as format
+    format that is format of a file exported from VisualStage 2007 and
+    `cha' format.  With identity matrix, this serves as format
     converter.
 
     This is useful to convert between stage coordinate of certain
