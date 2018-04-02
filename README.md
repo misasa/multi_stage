@@ -29,7 +29,7 @@ Commands are summarized as:
 
 | command     | description                       | note  |
 | ----------- | --------------------------------- | ----- |
-| spots-warp  | Transform coordinate among spaces |       |
+| spots-warp  | Project coordinate to other space |       |
 
 # Usage
 
