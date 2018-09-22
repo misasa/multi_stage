@@ -1,24 +1,14 @@
-# multi_stage
+# gem package -- multi_stage
 
 Project coordinate to other space
 
 # Dependency
 
-## [gem package -- opencvtool](http://devel.misasa.okayama-u.ac.jp/gitlab/gems/opencvtool/tree/master "follow instruction")
+## [gem package -- opencvtool](http://babel.misasa.okayama-u.ac.jp/gems/opencvtool/tree/master "follow instruction")
 
 # Installation
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'multi_stage'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
+Install this package as:
 
     $ gem source -a http://dream.misasa.okayama-u.ac.jp/rubygems
     $ gem install multi_stage
