@@ -4,7 +4,7 @@ Project coordinate to other space.
 
 # Dependency
 
-## [gem package -- opencvtool](https://babel.misasa.okayama-u.ac.jp/gems/opencvtool/tree/master "follow instruction")
+## [gem package -- opencvtool](https://gitlab.misasa.okayama-u.ac.jp/gems/opencvtool/tree/master "follow instruction")
 
 # Installation
 
