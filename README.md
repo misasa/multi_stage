@@ -1,6 +1,6 @@
 # gem package -- multi_stage
 
-Provide 'warp spots' to project coordinate to other space. It is useful to convert 
+Provide 'spots-warp' that projects coordinate to other space. It is useful to convert 
 stage coordinate of certain device into global coordinate in VisualStage 2007.
 
 # Dependency
