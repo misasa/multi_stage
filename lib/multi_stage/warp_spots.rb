@@ -136,7 +136,7 @@ SYNOPSIS AND USAGE
 DESCRIPTION
     Project coordinate to other space.  With Affine matrix, coordinates
     are transformed.  The affine matrix can be specified by
-    geometryfile with Affine matrix or inline expression of matrix.
+    imageometryfile or inline expression.
 
     As of March 30, 2018, #{opts.program_name} accepts `stagelist.txt'
     format that is format of a file exported from VisualStage 2007 and
