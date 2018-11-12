@@ -134,7 +134,7 @@ SYNOPSIS AND USAGE
     #{opts.program_name} [options] stagelist.txt
 
 DESCRIPTION
-    Project coordinate to other space.  With Affine matrix, coordinate
+    Project coordinate to other space.  With Affine matrix, coordinates
     are transformed.  The affine matrix can be specified by
     geometryfile with Affine matrix or inline expression of matrix.
 
@@ -178,6 +178,7 @@ SEE ALSO
     image-get-affine in `python package -- opencvtool'
     vs2cha
     cha2vs
+    https://gitlab.misasa.okayama-u.ac.jp/gems/multi_stage
 
 IMPLEMENTATION
     Copyright (c) 2012,2018 Okayama University
