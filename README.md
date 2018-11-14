@@ -3,7 +3,7 @@
 Provide 'spots-warp' that projects coordinate to other space. It is useful to convert 
 stage coordinate of certain device into global coordinate in VisualStage 2007.
 
-See also 'image-warp' in [python package -- image_mosaic](https://github.com/misasa/image_mosaic).
+See also `image-warp' in [python package -- image_mosaic](https://github.com/misasa/image_mosaic).
 
 # Dependency
 
