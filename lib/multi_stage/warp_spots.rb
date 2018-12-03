@@ -134,20 +134,20 @@ SYNOPSIS AND USAGE
     #{opts.program_name} [options] stagelist.txt
 
 DESCRIPTION
-    Project coordinate to other space.  With Affine matrix, coordinates
-    are transformed.  The affine matrix can be specified by
-    imageometryfile or inline expression.
+    Project coordinate to other space using Affine matrix.
+    The Affine matrix should be specified by imageometryfile or inline
+    expression.
 
     As of March 30, 2018, #{opts.program_name} accepts `stagelist.txt'
     format that is format of a file exported from VisualStage 2007 and
-    `cha' format.  With identity matrix, this serves as format
+    `cha' format.  With identity matrix, this serves as a format
     converter.
 
     This is useful to convert between stage coordinate of certain
     device and global coordinate in VisualStage 2007.
 
     When image is specified, this program assumes that there is
-    geometryfile with it.
+    imageometryfile with it.
 
 EXAMPLE
     $ vs-get-affine > stagelist@1270.geo
@@ -175,7 +175,7 @@ EXAMPLE
 SEE ALSO
     vs-warp-spots-1270 in `gem package -- vstool'
     vs-get-affine in `gem package -- vstool'
-    image-get-affine in `python package -- opencvtool'
+    image-get-affine in `python package -- image_mosaic'
     vs2cha
     cha2vs
     https://gitlab.misasa.okayama-u.ac.jp/gems/multi_stage
