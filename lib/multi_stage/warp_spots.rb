@@ -197,7 +197,7 @@ EOS
 					params[:verbose] = v
 				end
 
-				opts.on("-i", "--inverse", "Use inverse affine matrix") do |v|
+				opts.on("-i", "--inverse", "Use inverse Affine matrix") do |v|
 					params[:inverse] = v
 				end
 
@@ -205,14 +205,14 @@ EOS
 					params[:image_file] = v
 				end
 
-				opts.on("-a", "--affine-file affine-file", "Specify affine matrix file") do |v|
+				opts.on("-a", "--affine-file affine-file", "Specify Affine-matrix file") do |v|
 					params[:affine_file] = v
 				end
 
-				opts.on("-m", "--affine-matrix a,b,c,d,e,f,g,h,i", Array, "Specify affine matrix [a,b,c; d,e,f; g,h,i]") do |v|
+				opts.on("-m", "--affine-matrix a,b,c,d,e,f,g,h,i", Array, "Specify Affine matrix [a,b,c; d,e,f; g,h,i]") do |v|
 					v.concat([0, 0, 1]) if v.length == 6
 					if v.length != 9
-				 		puts "incorrect number of arguments for affine matrix"
+				 		puts "incorrect number of arguments for Affine matrix"
 				    	exit
 				    end
 				    v.map!{|vv| vv.to_f}
@@ -224,7 +224,7 @@ EOS
 					params[:format] = t
 				end
 
-				opts.on("-o", "--output-file output-file", "Name of output file with exension that should be one of (.txt, .csv, .tex, .cha)") do |v|
+				opts.on("-o", "--output-file output-file", "Name of output file with exension that should be one of (.txt, .csv, yaml, .tex, .cha)") do |v|
 					params[:output_file] = v
 				end
 
