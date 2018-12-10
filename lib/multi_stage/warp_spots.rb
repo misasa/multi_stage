@@ -173,9 +173,11 @@ EXAMPLE
     $ spots-warp site-5-1.xy-on-image.txt -a site-5-1.geo > site-5-1.vs.txt
 
 SEE ALSO
-    vs-warp-spots-1270 in `gem package -- vstool'
-    vs-get-affine in `gem package -- vstool'
-    image-get-affine in `python package -- image_mosaic'
+    vs-warp-spots-1270 in [gem package -- vstool](https://gitlab.misasa.okayama-u.ac.jp/gems/vstool)
+    vs-get-affine in [gem package -- vstool](https://gitlab.misasa.okayama-u.ac.jp/gems/vstool)
+    image-get-affine in [python package -- image_mosaic](https://github.com/misasa/image_mosaic)
+    spots.m in [matlab script -- VisualSpots](http://multimed.misasa.okayama-u.ac.jp/repository/matlab)
+    vs_attach_image.m in [matlab script -- VisualSpots](http://multimed.misasa.okayama-u.ac.jp/repository/matlab)
     vs2cha
     cha2vs
     https://gitlab.misasa.okayama-u.ac.jp/gems/multi_stage
@@ -217,8 +219,8 @@ EOS
 				    params[:affine_matrix] = Matrix[ v[0..2], v[3..5], v[6..8] ]
 				end
 
-				opts.on("-f", "--format FORMAT", [:txt, :csv, :org, :tex, :cha, :reflist],
-				            "Format of text onto standard output (txt, csv, org, tex, cha, reflist)") do |t|
+				opts.on("-f", "--format FORMAT", [:txt, :csv, :org, :tex, :cha, :reflist, :yaml],
+				            "Format of text onto standard output (txt, csv, yaml, org, tex, cha, reflist)") do |t|
 					params[:format] = t
 				end
 
