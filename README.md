@@ -13,7 +13,7 @@ See also `image-warp` in [python package -- image_mosaic](https://github.com/mis
 
 Install this package as:
 
-    $ gem source -a http://dream.misasa.okayama-u.ac.jp/rubygems
+    $ gem source -a http://dream.misasa.okayama-u.ac.jp/rubygems/
     $ gem install multi_stage
 
 # Commands
