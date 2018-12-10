@@ -54,6 +54,13 @@ module MultiStage
 				}
 			end
 
+			context "format yaml", :current => true do
+				let(:args){ [ txt_path, "-f", "yaml" ]}
+				it {
+					subject
+				}
+			end
+
 
 			context "format org" do
 				let(:args){ [ txt_path, "-f", "org" ]}
@@ -62,7 +69,7 @@ module MultiStage
 				}
 			end
 
-			context "format tex", :current => true do
+			context "format tex" do
 				let(:args){ [ txt_path, "-f", "tex", "-g", image_path, "-a", imageinfo_path ]}
 				let(:image_path){ 'tmp/chitech.tif'}
 				let(:imageinfo_path){ 'tmp/chitech.vs'}
@@ -74,6 +81,15 @@ module MultiStage
 
 				it {
 					subject
+				}
+			end
+
+			context "output yaml", :current => true do
+				let(:args){ [ txt_path, "-o", out_path ]}
+				let(:out_path){ "tmp/vs-points-list.yaml" }
+				it {
+					subject
+					expect(File.exists?(out_path)).to be_truthy
 				}
 			end
 

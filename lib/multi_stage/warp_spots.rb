@@ -219,8 +219,8 @@ EOS
 				    params[:affine_matrix] = Matrix[ v[0..2], v[3..5], v[6..8] ]
 				end
 
-				opts.on("-f", "--format FORMAT", [:txt, :csv, :org, :tex, :cha, :reflist],
-				            "Format of text onto standard output (txt, csv, org, tex, cha, reflist)") do |t|
+				opts.on("-f", "--format FORMAT", [:txt, :csv, :org, :tex, :cha, :reflist, :yaml],
+				            "Format of text onto standard output (txt, csv, yaml, org, tex, cha, reflist)") do |t|
 					params[:format] = t
 				end
 
