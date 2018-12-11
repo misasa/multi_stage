@@ -20,9 +20,9 @@ Install this package as:
 
 Commands are summarized as:
 
-| command     | description                       | note  |
-| ----------- | --------------------------------- | ----- |
-| spots-warp  | Project coordinate to other space |       |
+| command     | description                        | note  |
+| ----------- | ---------------------------------- | ----- |
+| spots-warp  | Project coordinate to other space. |       |
 
 # Usage
 
