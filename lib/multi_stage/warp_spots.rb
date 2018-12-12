@@ -128,7 +128,7 @@ DESCRIPTION
     The Affine matrix should be specified by imageometryfile or inline
     expression.
 
-    As of March 30, 2018, #{opts.program_name} accepts `stagelist.txt'
+    As of December 12, 2018, #{opts.program_name} accepts `stagelist.txt'
     format that is format of a file exported from VisualStage 2007.  
     With identity matrix, this serves as a format converter.
 
@@ -173,6 +173,7 @@ IMPLEMENTATION
 	License GPLv3+: GNU GPL version 3 or later
 
 HISTORY
+    December 12, 2018: Drop support for Cameca
     March 30, 2018: Documantation corrected.
     April 10, 2015: Rename warp_spots as #{File.basename($0, '.*')}.
     May 25, 2015: Drop support for stagelist.spot
