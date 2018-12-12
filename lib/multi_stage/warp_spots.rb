@@ -2,7 +2,6 @@ require 'optparse'
 require 'matrix'
 require 'yaml'
 require 'dimensions'
-#require 'array'
 
 module Dimensions
   def self.length(filename)
@@ -50,33 +49,24 @@ module MultiStage
 		def generate_point_data(path)
 		  basename = File.basename(path, ".*")
 		  ext = File.extname(path)
-		  case ext
-		  when ".cha"
-		    io = File.open(path)
-
-		    def_chain = DefChain.new
-		    def_chain.read(io)
-		    return def_chain.to_point_data
-		  else
-		    lines = []
-		    File.open(path) do |f|
-		      while line = f.gets
-		        lines << line.chomp
-		      end
+		  lines = []
+		  File.open(path) do |f|
+		    while line = f.gets
+		      lines << line.chomp
 		    end
-		    head = lines.shift.split("\t")
-
-		    point_data = []
-		    lines.each do |line|
-		      vals = line.split("\t")
-		      h = Hash.new
-		      vals.each_with_index{|val,index| h[head[index]] = val}
-		      h["X-Locate"] = h["X-Locate"].to_f
-		      h["Y-Locate"] = h["Y-Locate"].to_f
-		      point_data << h
-		    end
-		    return point_data
 		  end
+		  head = lines.shift.split("\t")
+
+		  point_data = []
+		  lines.each do |line|
+		    vals = line.split("\t")
+		    h = Hash.new
+		    vals.each_with_index{|val,index| h[head[index]] = val}
+		    h["X-Locate"] = h["X-Locate"].to_f
+		    h["Y-Locate"] = h["Y-Locate"].to_f
+		    point_data << h
+		  end
+		  return point_data
 		end
 
 		def tex_escape(txt)
@@ -139,9 +129,8 @@ DESCRIPTION
     expression.
 
     As of March 30, 2018, #{opts.program_name} accepts `stagelist.txt'
-    format that is format of a file exported from VisualStage 2007 and
-    `cha' format.  With identity matrix, this serves as a format
-    converter.
+    format that is format of a file exported from VisualStage 2007.  
+    With identity matrix, this serves as a format converter.
 
     This is useful to convert between stage coordinate of certain
     device and global coordinate in VisualStage 2007.
@@ -152,9 +141,6 @@ DESCRIPTION
 EXAMPLE
     $ vs-get-affine > stagelist@1270.geo
     $ spots-warp stagelist@1270.txt -o stagelist.txt -a stagelist@1270.geo
-
-    $ spots-warp stagelist@5f.cha -o stagelist.txt -a stagelist@5f.geo
-    $ spots-warp stagelist.txt -o stagelist@5f.cha -a stagelist@5f.geo -i
 
     To import spots described in relative corrdinates created by
     `spots.m' using imageometry file by `vs_attach_image.m', follow an
@@ -219,12 +205,12 @@ EOS
 				    params[:affine_matrix] = Matrix[ v[0..2], v[3..5], v[6..8] ]
 				end
 
-				opts.on("-f", "--format FORMAT", [:txt, :csv, :org, :tex, :cha, :reflist, :yaml],
-				            "Format of text onto standard output (txt, csv, yaml, org, tex, cha, reflist)") do |t|
+				opts.on("-f", "--format FORMAT", [:txt, :csv, :org, :tex, :yaml],
+				            "Format of text onto standard output (txt, csv, yaml, org, tex)") do |t|
 					params[:format] = t
 				end
 
-				opts.on("-o", "--output-file output-file", "Name of output file with exension that should be one of (.txt, .csv, yaml, .tex, .cha)") do |v|
+				opts.on("-o", "--output-file output-file", "Name of output file with exension that should be one of (.txt, .csv, .yaml, .org, .tex)") do |v|
 					params[:output_file] = v
 				end
 
@@ -396,93 +382,11 @@ EOS
 			  io.puts '\\end{figure}'
 			  io.puts '%\\end{document}'
 			  io.puts '%----------------------------------'
-
-
-			when :cha
-			  input = Hash.new
-			  input["tab"] = []
-			  input[:file] = params[:output_file]
-			  input[:nb_analyses] = point_data.size
-			  point_data.each do |point|
-			    h = Hash.new
-			    h["filename"] = point["Name"] + ".is"
-			    h["instr_file"] = point["Name"] + ".pri"
-			    h["sple_name"] = point["Name"].split('@')[0]
-			    h["sple_pos_x"] = point["X-Locate"].round
-			    h["sple_pos_y"] = point["Y-Locate"].round
-			    input["tab"] << h
-			  end
-			  def_chain = MultiStage::Cameca::DefChain.new
-			  def_chain.assign(input)
-			  def_chain.write(io)
-			when :reflist
-			#  head = Hash.new
-			  head = MultiStage::Cameca::ReflistHead.new
-			  head["size_of_struct_entete_enr"] = 8012
-			  head["size_of_struct_ibd_fil_stru_entete_cli"] = 240
-			  entete_cli = head["entete_cli"]
-			  entete_cli["ibd_fich_code"] = "REF"
-			  entete_cli["ibd_device_code"] = "IMS7F"
-			  entete_cli["ibd_version_code"] = "V1.0"
-			  entete_enr = head["entete_enr"]
-			  entete_enr["nb_max_enr"] = 10
-			  entete_enr["nb_enr"] = 0
-			  entete_enr["taille_enr"] = 4338
-			  entete_enr["nb_max_enr"].times do |idx|
-			    entete_enr["tab_enr"][idx] = 0
-			    entete_enr["tab_trou"][idx] = idx
-			  end
-
-			  lists = []
-			  count = 0
-			  point_data.in_groups_of(20) do |point_group|
-			    ibd_stru_enr_reflist = MultiStage::Cameca::IbdStruEnrReflist.new
-			    ibd_stru_enr_reflist.ibd_fil_reflist.ibd_nb_ref = point_group.compact.size
-			    point_group.compact.each_with_index do |point, idx|
-			      ibd_ref = ibd_stru_enr_reflist.ibd_fil_reflist.ibd_reflist[idx].ibd_ref
-			      t = Time.now
-			      ibd_ref.ibd_ref_com = point["Name"]
-			      ibd_ref.ibd_ref_dat = t.strftime("%Y/%m/%d:%H:%M:%S")
-
-			      ibd_ref.ibd_ref_posit.x = point["X-Locate"]
-			      ibd_ref.ibd_ref_posit.y = point["Y-Locate"]
-			    end
-			    count += 1
-			    lists << ibd_stru_enr_reflist
-			  end
-
-			  entete_enr.nb_enr = count
-			  count.times do |idx|
-			    entete_enr.tab_enr[idx] = idx
-			  end
-			  entete_enr.nb_max_enr.times do |idx|
-			    entete_enr.tab_trou[idx] = 0
-			  end
-			  (entete_enr.nb_max_enr - count).times do |idx|
-			    entete_enr.tab_trou[idx] = count + idx
-			  end
-
-			  head.write(io)
-			  if count == 0
-
-			  else
-			    lists[0].write(io)
-			  end
-
-			  if count > 1
-			    (count - 1).times do |idx|
-			      padding = MultiStage::Cameca::Padding10.new
-			      padding.write(io)
-			      lists[idx + 1].write(io)
-			    end
-			  end
-			#  ibd_stru_enr_reflist.write(io)
-
-			else
+                        when :yaml
 			  io.puts YAML.dump(point_data)
+			else
+                          raise "Invalid format #{params[:format]}"
 			end
-
-
 		end
 
 	end

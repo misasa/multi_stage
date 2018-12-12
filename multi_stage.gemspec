@@ -23,8 +23,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec", "~> 3.1"
   spec.add_development_dependency "turnip", "~> 1.2"
 
-
-  spec.add_dependency "bindata", "~> 2.1"
   spec.add_dependency "dimensions", "~> 1.3"  
   spec.add_dependency "opencvtool"
 end

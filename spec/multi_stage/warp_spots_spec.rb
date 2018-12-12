@@ -54,10 +54,24 @@ module MultiStage
 				}
 			end
 
-			context "format yaml", :current => true do
+			context "format yaml" do
 				let(:args){ [ txt_path, "-f", "yaml" ]}
 				it {
 					subject
+				}
+			end
+
+			context "format cha", :current => true do
+				let(:args){ [ txt_path, "-f", "cha" ]}
+				it {
+                                  expect{subject}.to raise_error
+				}
+			end
+
+			context "format reflist", :current => true do
+				let(:args){ [ txt_path, "-f", "reflist" ]}
+				it {
+                                  expect{subject}.to raise_error
 				}
 			end
 
@@ -84,7 +98,7 @@ module MultiStage
 				}
 			end
 
-			context "output yaml", :current => true do
+			context "output yaml" do
 				let(:args){ [ txt_path, "-o", out_path ]}
 				let(:out_path){ "tmp/vs-points-list.yaml" }
 				it {
@@ -93,21 +107,19 @@ module MultiStage
 				}
 			end
 
-			context "output cha" do
-				let(:args){ [ txt_path, "-o", cha_path ]}
-				let(:cha_path){ "tmp/vs-points-list.cha" }
+			context "output cha", :current => true do
+				let(:args){ [ txt_path, "-o", out_path ]}
+				let(:out_path){ "tmp/vs-points-list.cha" }
 				it {
-					subject
-					expect(File.exists?(cha_path)).to be_truthy
+                                        expect{subject}.to raise_error
 				}
 			end
 
-			context "output reflist" do
-				let(:args){ [ txt_path, "-o", reflist_path ]}
-				let(:reflist_path){ "tmp/vs-points-list.reflist" }
+			context "output reflist", :current => true do
+				let(:args){ [ txt_path, "-o", out_path ]}
+				let(:out_path){ "tmp/vs-points-list.reflist" }
 				it {
-					subject
-					expect(File.exists?(reflist_path)).to be_truthy
+                                        expect{subject}.to raise_error
 				}
 			end
 
