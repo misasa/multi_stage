@@ -1,0 +1,8 @@
+image: valian/docker-python-opencv-ffmpeg
+before_script:
+  - pip install image_mosaic
+  - bundle install
+
+test:
+  script:
+  - bundle exec rake spec
