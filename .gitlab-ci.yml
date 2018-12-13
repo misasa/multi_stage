@@ -1,8 +1,8 @@
 image: valian/docker-python-opencv-ffmpeg
 before_script:
-  - pip install git+https://github.com/misasa/image_mosaic.git
-  - apt-get install ruby
+  - apt-get update && apt-get install ruby
   - ruby -v
+  - pip install git+https://github.com/misasa/image_mosaic.git
   - gem install bundler
   - bundle install
 
