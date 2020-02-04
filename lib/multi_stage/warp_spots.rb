@@ -167,6 +167,7 @@ SEE ALSO
     vs2cha
     cha2vs
     https://gitlab.misasa.okayama-u.ac.jp/gems/multi_stage
+    https://gitlab.misasa.okayama-u.ac.jp/gems/multi_stage/blob/master/lib/multi_stage/warp_spots.rb
 
 IMPLEMENTATION
     Copyright (c) 2012,2018 Okayama University
