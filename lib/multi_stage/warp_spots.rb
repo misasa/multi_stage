@@ -170,7 +170,7 @@ SEE ALSO
     https://gitlab.misasa.okayama-u.ac.jp/gems/multi_stage/blob/master/lib/multi_stage/warp_spots.rb
 
 IMPLEMENTATION
-    Copyright (c) 2012,2018 Okayama University
+    Copyright (c) 2012-2020 Okayama University
   License GPLv3+: GNU GPL version 3 or later
 
 HISTORY
