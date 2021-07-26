@@ -60,6 +60,7 @@ module MultiStage
         extname = File.extname(path).sub(/\./,'')
         if opts[:ext]
           extname = opts[:ext].to_s
+          extname = "geo" if extname == "vs"
         end
         dirname = File.dirname(path)
         dirname = File.join(dirname,opts[:insert_path]) if opts[:insert_path]
@@ -243,7 +244,7 @@ module MultiStage
     def self.textfile2array(path)
       a = []
       File.open(path).each do |line|
-        a << line.chomp!
+        a << line.chomp
       end
       a
     end
@@ -305,7 +306,6 @@ module MultiStage
       size = [width_in_um, height_in_um]
       center = [width_in_um/2.0, height_in_um/2.0]
       corners_on_stage = self.corners_on_stage(:center => center_on_stage, :size => size, :origin => 'ru')
-
       corners_on_world = opencvtool.transform_points(corners_on_stage, :matrix => stage2world)
 
       width_on_world = sprintf("%.3f", distance(corners_on_world[0],corners_on_world[1])).to_f

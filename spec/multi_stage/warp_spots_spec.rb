@@ -86,7 +86,7 @@ module MultiStage
 			context "format tex" do
 				let(:args){ [ txt_path, "-f", "tex", "-g", image_path, "-a", imageinfo_path ]}
 				let(:image_path){ 'tmp/chitech.tif'}
-				let(:imageinfo_path){ 'tmp/chitech.vs'}
+				let(:imageinfo_path){ 'tmp/chitech.geo'}
 
 				before(:each) do
 					setup_file(image_path)

@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+require 'multi_stage'
+
+app = MultiStage::Jeol2Geo.new(STDOUT, ARGV)
+app.run
