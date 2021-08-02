@@ -1,5 +1,5 @@
 module MultiStage
-  class Jeol2Geo
+  class ProjectionMap
     attr_accessor :argv, :params, :io
     def initialize(output, argv = ARGV)
       @io = output
@@ -8,7 +8,7 @@ module MultiStage
     def run
       params = {:format => :txt}
       options = OptionParser.new do |opts|
-      opts.program_name = "jeol2geo"
+      opts.program_name = "projection-map"
         opts.banner = <<"EOS"
 NAME
     #{opts.program_name} - Convert imajeoletryfile to imageometryfile
@@ -32,14 +32,14 @@ EXAMPLE
     $CM_FULL_SIZE 1280 960
     $CM_STAGE_POS 2.044 0.704 10.2 11.0 0.0 0
     $ vs-get-affine -f yaml > device.geo
-    $ jeol2geo site-5-1.txt -a device.geo
+    $ projection-map site-5-1.txt -a device.geo
     $ ls
     site-5-1.jpg site-5-1.txt site-5-1.geo device.geo
 SEE ALSO
     vs-get-affine in [gem package -- vstool](https://gitlab.misasa.okayama-u.ac.jp/gems/vstool)
     vs_attach_image.m in [matlab script -- VisualSpots](http://multimed.misasa.okayama-u.ac.jp/repository/matlab)
     https://gitlab.misasa.okayama-u.ac.jp/gems/multi_stage
-    https://gitlab.misasa.okayama-u.ac.jp/gems/multi_stage/blob/master/lib/multi_stage/jeol2geo.rb
+    https://gitlab.misasa.okayama-u.ac.jp/gems/multi_stage/blob/master/lib/multi_stage/projection_map.rb
 
 IMPLEMENTATION
     Copyright (c) 2012-2021 Okayama University

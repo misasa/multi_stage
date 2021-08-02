@@ -2,8 +2,8 @@ require 'spec_helper'
 require 'multi_stage'
 
 module MultiStage
-	describe Jeol2Geo do
-		let(:cui){ Jeol2Geo.new(myout, args) }
+	describe ProjectionMap do
+		let(:cui){ ProjectionMap.new(myout, args) }
 
 		describe "#run with -h" do
 			let(:args){ ['-h'] }
