@@ -90,6 +90,17 @@ module MultiStage
   #    @@opencvtool = OpenCvTool.new(:verbose => @verbose)
     end
 
+    def self.generate_info(path, opts = {})
+      basename = File.basename(path, ".*")
+      pixs = Dimensions.dimensions(path)
+      h = {}
+      h['$CM_MAG'] = opts[:magnification] || 150
+      h['$CM_TITLE'] = basename
+      h['$CM_FULL_SIZE'] = pixs.join(" ")
+      h['$CM_STAGE_POS'] = opts[:stage_position].join(" ") + " 0.0 0.0 0"
+      h
+    end
+
     def self.image_dimension(path)
       pixs = Dimensions.dimensions(path)
     end
