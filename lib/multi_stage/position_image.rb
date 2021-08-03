@@ -22,7 +22,7 @@ module MultiStage
   EXAMPLE
       > ls
       site-5-1.jpg
-      > position-image site-5-1.jpg --magnification 10 --stage-position [2.044,0.704]
+      > position-image site-5-1.jpg --magnification 10 --stage-position 2044,704,10200
       > ls
       site-5-1.jpg site-5-1.txt
       > cat site-5-1.txt
