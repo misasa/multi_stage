@@ -24,15 +24,16 @@ DESCRIPTION
     specified by imageometryfile or inline expression.
 
 EXAMPLE
-    $ ls
+    > ls
     site-5-1.jpg site-5-1.txt
-    $ cat site-5-1.txt
+    > cat site-5-1.txt
     $CM_MAG 150
     $CM_TITLE Site-5-1
     $CM_FULL_SIZE 1280 960
     $CM_STAGE_POS 2.044 0.704 10.2 11.0 0.0 0
-    $ vs-get-affine -f yaml > device.geo
-    $ projection-map site-5-1.txt -a device.geo
+    $$SM_SCAN_ROTATION 10.00
+    > vs-get-affine -f yaml > device.geo
+    > projection-map site-5-1.txt -a device.geo
     $ ls
     site-5-1.jpg site-5-1.txt site-5-1.geo device.geo
 SEE ALSO
@@ -46,6 +47,7 @@ IMPLEMENTATION
   License GPLv3+: GNU GPL version 3 or later
 
 HISTORY
+    Aug 3, 2021: Support $$SCAN_ROTATION
     July 26, 2021: First commit.
 
 OPTIONS

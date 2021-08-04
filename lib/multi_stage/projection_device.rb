@@ -22,7 +22,7 @@ module MultiStage
   EXAMPLE
       > ls
       site-5-1.jpg
-      > projection-device site-5-1.jpg --magnification 10 --stage-position 2044,704,10200
+      > projection-device site-5-1.jpg --magnification 10 --stage-position 2044,704,10200 --scan-rotaion 10.0
       > ls
       site-5-1.jpg site-5-1.txt
       > cat site-5-1.txt
@@ -30,12 +30,14 @@ module MultiStage
       $CM_TITLE Site-5-1
       $CM_FULL_SIZE 1280 960
       $CM_STAGE_POS 2.044 0.704 10.2 11.0 0.0 0
-      > projection-device site-5-1.jpg --width 12000 --stage-position 2044,704,10200
+      $$SM_SCAN_ROTATION 10.00
+      > projection-device site-5-1.jpg --width 12000 --stage-position 2044,704,10200 --scan-rotaion 10.0
       > cat site-5-1.txt
       $CM_MAG 10
       $CM_TITLE Site-5-1
       $CM_FULL_SIZE 1280 960
       $CM_STAGE_POS 2.044 0.704 10.2 11.0 0.0 0
+      $$SM_SCAN_ROTATION 10.00
   SEE ALSO
       vs-get-affine in [gem package -- vstool](https://gitlab.misasa.okayama-u.ac.jp/gems/vstool)
       vs_attach_image.m in [matlab script -- VisualSpots](http://multimed.misasa.okayama-u.ac.jp/repository/matlab)
@@ -73,6 +75,10 @@ EOS
               params[:stage_position] = v
           end
   
+          opts.on("-r", "--scan-rotation SCAN_ROTATION_IN_DEGREE", "Specify scan rotation in degree") do |v|
+            params[:scan_rotation] = v
+          end
+
           opts.on_tail("-h", "--help", "Show this message") do
             puts opts
               exit

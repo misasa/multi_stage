@@ -34,7 +34,7 @@ module MultiStage
 			end
         end
 
-		describe "#run with invalid path", :current => true do
+		describe "#run with invalid path" do
 			subject { cui.run }
 			let(:args){ [ image_path ] }
 			let(:image_path) { 'tmp/mis_A.jpg' }
@@ -75,7 +75,7 @@ module MultiStage
                 end
         end    
 
-        describe "#run with width option", :current => true do
+        describe "#run with width option" do
                 subject { cui.run }
                 let(:args){ [ image_path, '-w', width] }
                 let(:image_path) { 'tmp/mis_A.jpg' }
@@ -102,5 +102,20 @@ module MultiStage
                 expect{subject}.not_to raise_error
             end
         end    
+
+        describe "#run with scan_rotation option", :current => true do
+            subject { cui.run }
+            let(:args){ [ image_path, '-r', rotation_string] }
+            let(:image_path) { 'tmp/mis_A.jpg' }
+            let(:rotation_string){ '12' }
+            before(:each) do
+                setup_empty_dir('tmp')
+                setup_file(image_path)
+            end
+            it "not raise error" do
+                expect{subject}.not_to raise_error
+            end
+        end    
+
     end
 end
