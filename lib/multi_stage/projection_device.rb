@@ -1,5 +1,5 @@
 module MultiStage
-    class PositionImage
+    class ProjectionDevice
       attr_accessor :argv, :params, :io
       def initialize(output, argv = ARGV)
         @io = output
@@ -8,7 +8,7 @@ module MultiStage
       def run
         params = {:magnification => 10.0, :stage_position => [0,0,10.0]}
         options = OptionParser.new do |opts|
-        opts.program_name = "position-image"
+        opts.program_name = "projection-device"
           opts.banner = <<"EOS"
   NAME
       #{opts.program_name} - Generate imajeoletryfile
@@ -17,12 +17,12 @@ module MultiStage
       #{opts.program_name} [options] IMAGEFILE
   
   DESCRIPTION
-      Generate image-info file. 
+      Generate imagjeoletryfile. 
   
   EXAMPLE
       > ls
       site-5-1.jpg
-      > position-image site-5-1.jpg --magnification 10 --stage-position 2044,704,10200
+      > projection-device site-5-1.jpg --magnification 10 --stage-position 2044,704,10200
       > ls
       site-5-1.jpg site-5-1.txt
       > cat site-5-1.txt
@@ -30,7 +30,7 @@ module MultiStage
       $CM_TITLE Site-5-1
       $CM_FULL_SIZE 1280 960
       $CM_STAGE_POS 2.044 0.704 10.2 11.0 0.0 0
-      > position-image site-5-1.jpg --width 12000 --stage-position 2044,704,10200
+      > projection-device site-5-1.jpg --width 12000 --stage-position 2044,704,10200
       > cat site-5-1.txt
       $CM_MAG 10
       $CM_TITLE Site-5-1

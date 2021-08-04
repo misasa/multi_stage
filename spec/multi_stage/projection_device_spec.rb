@@ -2,8 +2,8 @@ require 'spec_helper'
 require 'multi_stage'
 
 module MultiStage
-	describe PositionImage do
-		let(:cui){ PositionImage.new(myout, args) }
+	describe ProjectionDevice do
+		let(:cui){ ProjectionDevice.new(myout, args) }
 		describe "#run with -h" do
 			let(:args){ ['-h'] }
 
