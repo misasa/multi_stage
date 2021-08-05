@@ -1,6 +1,6 @@
 # gem package -- multi_stage
 
-Provide `spots-warp`,`projection-device` and `projection-map` that projects coordinates and image to other space.  It is useful to convert 
+Provide `spots-warp`,`projection-device` and `projection-map` that projects coordinates and image to other space.  `spots-warp` is useful to convert 
 stage coordinate of certain device into global coordinate in VisualStage 2007.
 
 See also `image-warp` in [python package -- image_mosaic](https://github.com/misasa/image_mosaic).
