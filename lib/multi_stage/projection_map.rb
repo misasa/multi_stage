@@ -26,6 +26,9 @@ DESCRIPTION
     VisualStage 2007.  The Affine matrix should be fed
     into #{opts.program_name} by imageometryfile or inline expression.
 
+    Create image-info file manually when necessary using
+    projection-device.
+
 EXAMPLE
     > ls
     cniso-mtx-c53-1s1@6065.jpg cniso-mtx-c53-1s1@6065.txt
@@ -35,15 +38,18 @@ EXAMPLE
     $CM_FULL_SIZE 1280 960
     $CM_STAGE_POS 2.044 0.704 10.2 11.0 0.0 0
     $$SM_SCAN_ROTATION 10.00
-    > vs-get-affine -f yaml > cniso-mtx-c53-1s1@6060@6070@IMS1280.geo
-    > projection-map cniso-mtx-c53-1s1@6065.txt -a cniso-mtx-c53-1s1@6060@6070@IMS1280.geo
+    > vs-get-affine -f yaml > stage-of-VS1280@surface-mnt-C0053-1-s1.geo
+    > projection-map cniso-mtx-c53-1s1@6065.txt -a stage-of-VS1280@surface-mnt-C0053-1-s1.geo
     $ ls
-    cniso-mtx-c53-1s1@6065.jpg cniso-mtx-c53-1s1@6065.txt cniso-mtx-c53-1s1@6065.geo cniso-mtx-c53-1s1@6060@6070@IMS1280.geo
+    cniso-mtx-c53-1s1@6065.jpg cniso-mtx-c53-1s1@6065.txt cniso-mtx-c53-1s1@6065.geo stage-of-VS1280@surface-mnt-C0053-1-s1.geo
+    > orochi-upload --surface_id=${SURFACEID} --layer=${LAYERNAME} cniso-mtx-c53-1s1@6065.jpg
 
 SEE ALSO
-    vs-get-affine in [gem package -- vstool](https://gitlab.misasa.okayama-u.ac.jp/gems/vstool)
-    vs_attach_image.m in [matlab script -- VisualSpots](http://multimed.misasa.okayama-u.ac.jp/repository/matlab)
     projection-device in [gem package -- multi_stage](https://gitlab.misasa.okayama-u.ac.jp/gems/multi_stage)
+    orochi-upload in [gem package -- orochi-for-medusa](https://github.com/misasa/orochi-for-medusa)
+    vs-get-affine in [gem package -- vstool](https://gitlab.misasa.okayama-u.ac.jp/gems/vstool)
+    vs-attach-image in [gem package -- vstool](https://gitlab.misasa.okayama-u.ac.jp/gems/vstool)
+    vs_attach_image.m in [matlab script -- VisualSpots](http://multimed.misasa.okayama-u.ac.jp/repository/matlab)
     https://gitlab.misasa.okayama-u.ac.jp/gems/multi_stage/blob/master/lib/multi_stage/projection_map.rb
 
 IMPLEMENTATION
@@ -64,7 +70,7 @@ EOS
           params[:affine_file] = v
         end
 
-        opts.on("-m", "--affine-matrix a,b,c,d,e,f,g,h,i", Array, "Specify Affine matrix [[a,b,c],[d,e,f],[g,h,i]]") do |v|
+        opts.on("-m", "--affine-matrix a,b,c,d,e,f,g,h,i", Array, "Specify Affine-matrix elements [a,b,c; d,e,f; g,h,i]") do |v|
           v.concat([0, 0, 1]) if v.length == 6
           if v.length != 9
             puts "incorrect number of arguments for Affine matrix"
