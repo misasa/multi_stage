@@ -20,11 +20,11 @@ Install this package as:
 
 Commands are summarized as:
 
-| command     | description                         | note  |
-| ----------- | ----------------------------------- | ----- |
-| spots-warp  | Project coordinates to other space. |       |
-| projection-device  | Generate imajeoletryfile to project image onto device. |       |
-| projection-map  | Generate geometryfile to project image onto surface map. |       |
+| command           | description                                                      | note  |
+| ----------------- | ---------------------------------------------------------------- | ----- |
+| spots-warp        | Project coordinates to other space.                              |       |
+| projection-device | Generate image-info file to project imagefile onto device space. |       |
+| projection-map    | Generate imageometryfile to project imagefile onto vs space.     |       |
 
 
 # Usage

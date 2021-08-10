@@ -11,37 +11,41 @@ module MultiStage
         opts.program_name = "projection-device"
           opts.banner = <<"EOS"
   NAME
-      #{opts.program_name} - Generate imajeoletryfile
+      #{opts.program_name} - Generate image-info file to project imagefile onto device space
   
   SYNOPSIS AND USAGE
       #{opts.program_name} [options] IMAGEFILE
   
   DESCRIPTION
-      Generate imagjeoletryfile. 
+      Generate image-info file to project imagefile onto device space.
+
+      Usually the image-info file, that also is referred as
+      imajeoletryfile, is created by JEOL JSM-7001F or JSM-8530F.
+      When you need an image-info file for images obtained by machines
+      besides JEOL JSM-7001F or JSM-8530F, call this program.
   
   EXAMPLE
       > ls
-      site-5-1.jpg
-      > projection-device site-5-1.jpg --magnification 10 --stage-position 2044,704,10200 --scan-rotaion 10.0
+      cniso-mtx-c53-1s1@6065.jpg
+      > projection-device cniso-mtx-c53-1s1@6065.jpg --magnification 10 --stage-position 2044,704,10200 --scan-rotaion 10.0
       > ls
-      site-5-1.jpg site-5-1.txt
-      > cat site-5-1.txt
+      cniso-mtx-c53-1s1@6065.jpg cniso-mtx-c53-1s1@6065.txt
+      > cat cniso-mtx-c53-1s1@6065
       $CM_MAG 10
-      $CM_TITLE Site-5-1
+      $CM_TITLE cniso-mtx-c53-1s1@6065
       $CM_FULL_SIZE 1280 960
       $CM_STAGE_POS 2.044 0.704 10.2 11.0 0.0 0
       $$SM_SCAN_ROTATION 10.00
-      > projection-device site-5-1.jpg --width 12000 --stage-position 2044,704,10200 --scan-rotaion 10.0
-      > cat site-5-1.txt
+      > projection-device cniso-mtx-c53-1s1@6065.jpg --width 12000 --stage-position 2044,704,10200 --scan-rotaion 10.0
+      > cat cniso-mtx-c53-1s1@6065.txt
       $CM_MAG 10
-      $CM_TITLE Site-5-1
+      $CM_TITLE cniso-mtx-c53-1s1@6065
       $CM_FULL_SIZE 1280 960
       $CM_STAGE_POS 2.044 0.704 10.2 11.0 0.0 0
       $$SM_SCAN_ROTATION 10.00
+
   SEE ALSO
-      vs-get-affine in [gem package -- vstool](https://gitlab.misasa.okayama-u.ac.jp/gems/vstool)
-      vs_attach_image.m in [matlab script -- VisualSpots](http://multimed.misasa.okayama-u.ac.jp/repository/matlab)
-      https://gitlab.misasa.okayama-u.ac.jp/gems/multi_stage
+      projection-map in [gem package -- multi_stage](https://gitlab.misasa.okayama-u.ac.jp/gems/multi_stage)
       https://gitlab.misasa.okayama-u.ac.jp/gems/multi_stage/blob/master/lib/multi_stage/projection_map.rb
   
   IMPLEMENTATION

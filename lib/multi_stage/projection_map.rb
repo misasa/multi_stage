@@ -11,35 +11,39 @@ module MultiStage
       opts.program_name = "projection-map"
         opts.banner = <<"EOS"
 NAME
-    #{opts.program_name} - Convert imajeoletryfile to imageometryfile
+    #{opts.program_name} - Generate imageometryfile to project imagefile onto vs space
 
 SYNOPSIS AND USAGE
     #{opts.program_name} [options] IMAJEOLETRYFILE
 
 DESCRIPTION
-    Convert imajeoletryfile to imageometryfile using Affine matrix. 
-    You need to have a pair of image file and image-info file. 
-    The image-info file is created by JEOL JSM-7001F or JSM-8530F and 
-    is also reffered as imajeoletryfile. The Affine matrix should be 
-    specified by imageometryfile or inline expression.
+    Generate imageometryfile to project imagefile onto vs space.
+
+    You need to have a pair of image file and image-info file, and
+    device-to-vs Affine matrix.  The image-info file is created by
+    JEOL JSM-7001F or JSM-8530F and is also reffered as
+    imajeoletryfile.  The Affine matrix should be obtained from
+    VisualStage 2007.  The Affine matrix should be fed
+    into #{opts.program_name} by imageometryfile or inline expression.
 
 EXAMPLE
     > ls
-    site-5-1.jpg site-5-1.txt
-    > cat site-5-1.txt
+    cniso-mtx-c53-1s1@6065.jpg cniso-mtx-c53-1s1@6065.txt
+    > cat cniso-mtx-c53-1s1@6065.txt
     $CM_MAG 150
-    $CM_TITLE Site-5-1
+    $CM_TITLE cniso-mtx-c53-1s1@6065
     $CM_FULL_SIZE 1280 960
     $CM_STAGE_POS 2.044 0.704 10.2 11.0 0.0 0
     $$SM_SCAN_ROTATION 10.00
-    > vs-get-affine -f yaml > device.geo
-    > projection-map site-5-1.txt -a device.geo
+    > vs-get-affine -f yaml > cniso-mtx-c53-1s1@6060@6070@IMS1280.geo
+    > projection-map cniso-mtx-c53-1s1@6065.txt -a cniso-mtx-c53-1s1@6060@6070@IMS1280.geo
     $ ls
-    site-5-1.jpg site-5-1.txt site-5-1.geo device.geo
+    cniso-mtx-c53-1s1@6065.jpg cniso-mtx-c53-1s1@6065.txt cniso-mtx-c53-1s1@6065.geo cniso-mtx-c53-1s1@6060@6070@IMS1280.geo
+
 SEE ALSO
     vs-get-affine in [gem package -- vstool](https://gitlab.misasa.okayama-u.ac.jp/gems/vstool)
     vs_attach_image.m in [matlab script -- VisualSpots](http://multimed.misasa.okayama-u.ac.jp/repository/matlab)
-    https://gitlab.misasa.okayama-u.ac.jp/gems/multi_stage
+    projection-device in [gem package -- multi_stage](https://gitlab.misasa.okayama-u.ac.jp/gems/multi_stage)
     https://gitlab.misasa.okayama-u.ac.jp/gems/multi_stage/blob/master/lib/multi_stage/projection_map.rb
 
 IMPLEMENTATION
