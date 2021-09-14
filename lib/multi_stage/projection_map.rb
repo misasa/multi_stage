@@ -39,7 +39,7 @@ EXAMPLE
     $CM_STAGE_POS 2.044 0.704 10.2 11.0 0.0 0
     $$SM_SCAN_ROTATION 10.00
     > vs-get-affine -f yaml > stage-of-VS1280@surface-mnt-C0053-1-s1.geo
-    > projection-map cniso-mtx-c53-1s1@6065.txt -a stage-of-VS1280@surface-mnt-C0053-1-s1.geo --stage-origin lu
+    > projection-map cniso-mtx-c53-1s1@6065.txt -a stage-of-VS1280@surface-mnt-C0053-1-s1.geo --stage-origin ld
     $ ls
     cniso-mtx-c53-1s1@6065.jpg cniso-mtx-c53-1s1@6065.txt cniso-mtx-c53-1s1@6065.geo stage-of-VS1280@surface-mnt-C0053-1-s1.geo
     > orochi-upload --surface_id=${SURFACEID} --layer=${LAYERNAME} cniso-mtx-c53-1s1@6065.jpg
@@ -57,6 +57,7 @@ IMPLEMENTATION
   License GPLv3+: GNU GPL version 3 or later
 
 HISTORY
+    Sep 14, 2021: Supprt stage-origin option
     Aug 3, 2021: Support $$SCAN_ROTATION
     July 26, 2021: First commit.
 
@@ -80,7 +81,7 @@ EOS
             params[:affine_matrix] = [ v[0..2], v[3..5], v[6..8] ]
         end
 
-        opts.on("-r", "--stage-origin VALUE", [:lu, :ru, :rb, :lb], "Specify stage origin: ld, rd, ru, or lu [default: #{params[:stage_origin]}]") do |v|
+        opts.on("-r", "--stage-origin VALUE", [:lu, :ru, :rd, :ld], "Specify stage origin: ld, rd, ru, or lu [default: #{params[:stage_origin]}]") do |v|
           params[:stage_origin] = v
         end
         opts.on_tail("-h", "--help", "Show this message") do

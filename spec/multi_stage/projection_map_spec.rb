@@ -36,7 +36,7 @@ module MultiStage
 
 	describe "#run with origin option" do
 		subject { cui.run }
-		let(:args){ [ txt_path, '-a', affine_path, '--stage-origin', 'lu'] }
+		let(:args){ [ txt_path, '-a', affine_path, '--stage-origin', 'ld'] }
 		let(:txt_path) { 'tmp/site-5-1.txt' }
 		let(:affine_path){ 'tmp/device.geo' }
 		before(:each) do
