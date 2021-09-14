@@ -6,7 +6,7 @@ module MultiStage
       @argv = argv
     end
     def run
-      params = {:format => :txt}
+      params = {:format => :txt, :stage_origin => :ru}
       options = OptionParser.new do |opts|
       opts.program_name = "projection-map"
         opts.banner = <<"EOS"
@@ -39,7 +39,7 @@ EXAMPLE
     $CM_STAGE_POS 2.044 0.704 10.2 11.0 0.0 0
     $$SM_SCAN_ROTATION 10.00
     > vs-get-affine -f yaml > stage-of-VS1280@surface-mnt-C0053-1-s1.geo
-    > projection-map cniso-mtx-c53-1s1@6065.txt -a stage-of-VS1280@surface-mnt-C0053-1-s1.geo
+    > projection-map cniso-mtx-c53-1s1@6065.txt -a stage-of-VS1280@surface-mnt-C0053-1-s1.geo --stage-origin lu
     $ ls
     cniso-mtx-c53-1s1@6065.jpg cniso-mtx-c53-1s1@6065.txt cniso-mtx-c53-1s1@6065.geo stage-of-VS1280@surface-mnt-C0053-1-s1.geo
     > orochi-upload --surface_id=${SURFACEID} --layer=${LAYERNAME} cniso-mtx-c53-1s1@6065.jpg
@@ -80,6 +80,9 @@ EOS
             params[:affine_matrix] = [ v[0..2], v[3..5], v[6..8] ]
         end
 
+        opts.on("-r", "--stage-origin VALUE", [:lu, :ru, :rb, :lb], "Specify stage origin: ld, rd, ru, or lu [default: #{params[:stage_origin]}]") do |v|
+          params[:stage_origin] = v
+        end
         opts.on_tail("-h", "--help", "Show this message") do
           puts opts
             exit
@@ -109,10 +112,8 @@ EOS
       end
 
       opts = {}
-      #if params[:output_file]
-      #  opts[:]
-      #end      
-      MultiStage::Image.from_sem_info(image_info_path, affine)
+      opts[:origin] = params[:stage_origin]
+      MultiStage::Image.from_sem_info(image_info_path, affine, opts)
     end
   end
 end  

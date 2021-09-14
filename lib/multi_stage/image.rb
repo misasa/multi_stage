@@ -42,7 +42,7 @@ module MultiStage
       x_min, x_max = ranges[0]
       y_min, y_max = ranges[1]
 
-      case origin
+      case origin.to_s
       when "ld"
         co = [[x_min, y_max], [x_max, y_max], [x_max, y_min], [x_min, y_min]]
       when "rd"
@@ -330,7 +330,7 @@ module MultiStage
       center_on_stage = [h[:stage_x_in_um], h[:stage_y_in_um]]
       size = [width_in_um, height_in_um]
       center = [width_in_um/2.0, height_in_um/2.0]
-      corners_on_stage = self.corners_on_stage(:center => center_on_stage, :rotation_in_degree => h[:scan_rotation], :size => size, :origin => 'ru')
+      corners_on_stage = self.corners_on_stage(:center => center_on_stage, :rotation_in_degree => h[:scan_rotation], :size => size, :origin => opts[:origin])
       corners_on_world = opencvtool.transform_points(corners_on_stage, :matrix => stage2world)
 
       width_on_world = sprintf("%.3f", distance(corners_on_world[0],corners_on_world[1])).to_f

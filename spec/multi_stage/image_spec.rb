@@ -26,11 +26,28 @@ module MultiStage
         setup_file(txt_path)
       end
 
-      context "with chitech" do
+      context "without origin" do
         it "returns instance of Image" do
+          p from_sem_info.instance_variable_get(:@affine_imagexy2world)
           from_sem_info.should be_an_instance_of(Image)
         end
       end
+
+      context "with origin ru" do
+        let(:opts){ {:origin => 'ru'} }
+        it "returns instance of Image" do
+          p from_sem_info.instance_variable_get(:@affine_imagexy2world)
+          from_sem_info.should be_an_instance_of(Image)
+        end
+      end      
+      context "with origin lu" do
+        let(:opts){ {:origin => 'lu'} }
+        it "returns instance of Image" do
+          p from_sem_info.instance_variable_get(:@affine_imagexy2world)
+          #p from_sem_info
+          from_sem_info.should be_an_instance_of(Image)
+        end
+      end      
     end
   end
 end

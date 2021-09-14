@@ -34,6 +34,20 @@ module MultiStage
 			end
     end
 
+	describe "#run with origin option" do
+		subject { cui.run }
+		let(:args){ [ txt_path, '-a', affine_path, '--stage-origin', 'lu'] }
+		let(:txt_path) { 'tmp/site-5-1.txt' }
+		let(:affine_path){ 'tmp/device.geo' }
+		before(:each) do
+			setup_file(txt_path)
+			setup_file(affine_path)
+		end
+		it "not raise error" do
+			expect{subject}.not_to raise_error
+		end
+	end
+
     describe "#run with affinefile option" do
 			subject { cui.run }
 			let(:args){ [ txt_path, '-a', affine_path] }
