@@ -35,8 +35,8 @@ DESCRIPTION
     |--------+----------------|
     | device | --stage-origin |
     |--------+----------------|
-    | SIMS   | lu             |
     | SEM    | ru (default)   |
+    | SIMS   | lu             |
     |--------+----------------|
 
 EXAMPLE
