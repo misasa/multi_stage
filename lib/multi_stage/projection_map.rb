@@ -11,13 +11,13 @@ module MultiStage
       opts.program_name = "projection-map"
         opts.banner = <<"EOS"
 NAME
-    #{opts.program_name} - Generate imageometryfile to project imagefile onto vs space
+    #{opts.program_name} - Generate imageometryfile to project imagefile onto VS space
 
 SYNOPSIS AND USAGE
     #{opts.program_name} [options] IMAJEOLETRYFILE
 
 DESCRIPTION
-    Generate imageometryfile to project imagefile onto vs space.
+    Generate imageometryfile to project imagefile onto VS space.
 
     You need to have a pair of image file and image-info file, and
     device-to-vs Affine matrix.  The image-info file is created by
@@ -26,8 +26,18 @@ DESCRIPTION
     VisualStage 2007.  The Affine matrix should be fed
     into #{opts.program_name} by imageometryfile or inline expression.
 
-    Create image-info file manually when necessary using
+    Create image-info file manually when necessary using utility
     projection-device.
+    
+    On projection of image obtained by SIMS, specify --stage-origin
+    explicitly.
+    
+    |--------+----------------|
+    | device | --stage-origin |
+    |--------+----------------|
+    | SIMS   | lu             |
+    | SEM    | ru (default)   |
+    |--------+----------------|
 
 EXAMPLE
     > ls
