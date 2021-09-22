@@ -27,7 +27,7 @@ module MultiStage
   EXAMPLE
       > ls
       cniso-mtx-c53-1s1@6065.jpg
-      > projection-device cniso-mtx-c53-1s1@6065.jpg --magnification 10 --stage-position 2044,704,10200 --scan-rotaion 10.0
+      > projection-device cniso-mtx-c53-1s1@6065.jpg --magnification 10 --stage-position 2044,704,10200 --scan-rotation 10.0
       > ls
       cniso-mtx-c53-1s1@6065.jpg cniso-mtx-c53-1s1@6065.txt
       > cat cniso-mtx-c53-1s1@6065
