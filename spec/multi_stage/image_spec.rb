@@ -48,6 +48,14 @@ module MultiStage
           from_sem_info.should be_an_instance_of(Image)
         end
       end      
+      context "with affine_in_string" do
+        let(:opts){ {:dump_affine_in_string => true} }
+        it "returns instance of Image" do
+          p from_sem_info.instance_variable_get(:@affine_imagexy2world)
+          #p from_sem_info
+          from_sem_info.should be_an_instance_of(Image)
+        end
+      end      
     end
   end
 end

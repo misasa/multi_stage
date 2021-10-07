@@ -348,7 +348,7 @@ module MultiStage
       end
       this.set_affine(affine_image2world, :image2world)
       this.info_path = filepath_for(path, :ext => :vs)
-      this.dump_info
+      this.dump_info(opts)
       this
     end
 
@@ -421,9 +421,13 @@ module MultiStage
     def pixels_per_um
       pixs[0] / size[0]
     end
+  
+    def affine_in_string(array)
+      "[" + array.map{|a| a.join(",") }.join(";") + "]"
+    end
 
-    def dump_info
-      dump(info_path)
+    def dump_info(opts)
+      dump(info_path, opts)
     end
 
     def dump(path, opts = {})
@@ -433,7 +437,11 @@ module MultiStage
   #    h["affine_device2vs"] = affine(:stage2world)
       h["affine_image2vs"] = affine(:image2world)
       h["affine_xy2vs"] = affine(:imagexy2world)
-
+      h["imageometry"] = affine_in_string(affine(:imagexy2world))
+      if (opts[:dump_affine_in_string])
+        h["affine_image2vs"] = affine_in_string(h["affine_image2vs"])
+        h["affine_xy2vs"] = affine_in_string(h["affine_xy2vs"])
+      end
       pairs = []
       vs = corners_on_world
       image = corners_on_image

@@ -94,6 +94,11 @@ EOS
         opts.on("-r", "--stage-origin VALUE", [:lu, :ru, :rd, :ld], "Specify stage origin: ld, rd, ru, or lu [default: #{params[:stage_origin]}]") do |v|
           params[:stage_origin] = v
         end
+
+        opts.on("--[no-]dump-affine-in-string", "Dump affine matrix in string") do |v|
+          params[:dump_affine_in_string] = v
+        end
+
         opts.on_tail("-h", "--help", "Show this message") do
           puts opts
             exit
@@ -111,8 +116,24 @@ EOS
 
       if params[:affine_file]
         affine_array = YAML.load_file(params[:affine_file])
-        affine_array = affine_array['affine_device2world'] if affine_array.is_a?(Hash)
+        if affine_array.is_a?(Hash)
+          if affine_array.has_key?('affine_device2world')
+            affine_array = affine_array['affine_device2world'] 
+          elsif affine_array.has_key?('stageometry')
+            affine_array = affine_array['stageometry'] 
+          end
+        end
         #affine = array_to_matrix(affine_array)
+        if affine_array.is_a?(String)
+          str = affine_array
+          str = str.gsub(/\[/,"").gsub(/\]/,"").gsub(/\;/,",").gsub(/\s+/,"")
+          tokens = str.split(',')
+          vals = tokens.map{|token| token.to_f}
+          vals.concat([0,0,1]) if vals.size == 6
+          if vals.size == 9
+            affine_array = [vals[0..2],vals[3..5],vals[6..8]]
+          end
+        end
         affine = affine_array
       else
         affine = [[1, 0, 0], [0, 1, 0], [0, 0, 1]]
@@ -124,6 +145,7 @@ EOS
 
       opts = {}
       opts[:origin] = params[:stage_origin]
+      opts[:affine_in_string] = true
       MultiStage::Image.from_sem_info(image_info_path, affine, opts)
     end
   end
