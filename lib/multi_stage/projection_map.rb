@@ -20,16 +20,16 @@ DESCRIPTION
     Generate imageometryfile to project imagefile onto VS space.
 
     You need to have a pair of image file and image-info file, and
-    device-to-vs Affine matrix.  The image-info file is created by
-    JEOL JSM-7001F or JSM-8530F and is also reffered as
-    imajeoletryfile.  The Affine matrix should be obtained from
-    VisualStage 2007.  The Affine matrix should be fed
+    device-to-vs Affine matrix (stageometry).  The image-info file
+    is created by JEOL JSM-7001F or JSM-8530F and is also reffered as
+    imajeoletryfile.  The Affine matrix (stageometry) should be obtained from
+    VisualStage 2007.  The Affine matrix (stageometry) should be fed
     into #{opts.program_name} by imageometryfile or inline expression.
 
     Create image-info file manually when necessary using utility
-    projection-device.
+    `projection-device'.
     
-    On projection of image obtained by SIMS, specify --stage-origin
+    On projection of image obtained by SIMS, specify `--stage-origin ld'
     explicitly.
     
     |--------+----------------|
@@ -38,6 +38,9 @@ DESCRIPTION
     | SEM    | ru (default)   |
     | SIMS   | ld             |
     |--------+----------------|
+    
+    When you locate an image obtained by SEM onto a new surface (without
+    alignment), call this program with stageometry [1,0,0;0,1,0;0,0,1].
 
 EXAMPLE
     > ls
@@ -52,7 +55,9 @@ EXAMPLE
     > projection-map cniso-mtx-c53-1s1@6065.txt -a stage-of-VS1280@surface-mnt-C0053-1-s1.geo --stage-origin ld
     $ ls
     cniso-mtx-c53-1s1@6065.jpg cniso-mtx-c53-1s1@6065.txt cniso-mtx-c53-1s1@6065.geo stage-of-VS1280@surface-mnt-C0053-1-s1.geo
-    > orochi-upload --surface_id=${SURFACEID} --layer=${LAYERNAME} cniso-mtx-c53-1s1@6065.jpg
+    > orochi-upload --surface_id=${SURFACEID} --layer=${LAYERNAME} --refresh-tile cniso-mtx-c53-1s1@6065.jpg
+    
+    > projection-map -m 1,0,0,0,1,0,0,0,1 cniso-mtx-c53-1s1@6065.txt
 
 SEE ALSO
     projection-device in [gem package -- multi_stage](https://gitlab.misasa.okayama-u.ac.jp/gems/multi_stage)
@@ -77,11 +82,11 @@ EOS
           params[:verbose] = v
         end
 
-        opts.on("-a", "--affine-file affine-file", "Specify Affine-matrix file") do |v|
+        opts.on("-a", "--affine-file affine-file", "Specify stageometry as Affine-matrix file") do |v|
           params[:affine_file] = v
         end
 
-        opts.on("-m", "--affine-matrix a,b,c,d,e,f,g,h,i", Array, "Specify Affine-matrix elements [a,b,c; d,e,f; g,h,i]") do |v|
+        opts.on("-m", "--affine-matrix a,b,c,d,e,f,g,h,i", Array, "Specify stageometry as Affine-matrix elements [a,b,c; d,e,f; g,h,i]") do |v|
           v.concat([0, 0, 1]) if v.length == 6
           if v.length != 9
             puts "incorrect number of arguments for Affine matrix"
