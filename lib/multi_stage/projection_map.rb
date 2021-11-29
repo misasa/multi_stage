@@ -40,24 +40,24 @@ DESCRIPTION
     |--------+----------------|
     
     When you locate an image obtained by SEM onto a new surface (without
-    alignment), call this program with stageometry [1,0,0;0,1,0;0,0,1].
+    alignment), call this program with stageometry [-1,0,0;0,-1,0;0,0,1].
 
 EXAMPLE
-    > ls
+    SIMS> ls
     cniso-mtx-c53-1s1@6065.jpg cniso-mtx-c53-1s1@6065.txt
-    > cat cniso-mtx-c53-1s1@6065.txt
+    SIMS> cat cniso-mtx-c53-1s1@6065.txt
     $CM_MAG 150
     $CM_TITLE cniso-mtx-c53-1s1@6065
     $CM_FULL_SIZE 1280 960
     $CM_STAGE_POS 2.044 0.704 10.2 11.0 0.0 0
     $$SM_SCAN_ROTATION 10.00
-    > vs-get-affine -f yaml > stage-of-VS1280@surface-mnt-C0053-1-s1.geo
-    > projection-map cniso-mtx-c53-1s1@6065.txt -a stage-of-VS1280@surface-mnt-C0053-1-s1.geo --stage-origin ld
+    SIMS> vs-get-affine -f yaml > stage-of-VS1280@surface-mnt-C0053-1-s1.geo
+    SIMS> projection-map cniso-mtx-c53-1s1@6065.txt -a stage-of-VS1280@surface-mnt-C0053-1-s1.geo --stage-origin ld
     $ ls
     cniso-mtx-c53-1s1@6065.jpg cniso-mtx-c53-1s1@6065.txt cniso-mtx-c53-1s1@6065.geo stage-of-VS1280@surface-mnt-C0053-1-s1.geo
-    > orochi-upload --surface_id=${SURFACEID} --layer=${LAYERNAME} --refresh-tile cniso-mtx-c53-1s1@6065.jpg
+    SIMS> orochi-upload --surface_id=${SURFACEID} --layer=${LAYERNAME} --refresh-tile cniso-mtx-c53-1s1@6065.jpg
     
-    > projection-map -m 1,0,0,0,1,0,0,0,1 cniso-mtx-c53-1s1@6065.txt
+    SEM> projection-map -m -1,0,0,0,-1,0,0,0,1 cniso-mtx-c53-1s1@6065.txt
 
 SEE ALSO
     projection-device in [gem package -- multi_stage](https://gitlab.misasa.okayama-u.ac.jp/gems/multi_stage)
