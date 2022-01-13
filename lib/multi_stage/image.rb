@@ -105,7 +105,8 @@ module MultiStage
 
     def self.generate_info(path, opts = {})
       basename = File.basename(path, ".*")
-      pixs = Dimensions.dimensions(path)
+      #pixs = Dimensions.dimensions(path)
+      pixs = self.image_dimension(path)
       h = {}
       h['$CM_MAG'] = opts[:magnification] || 150
       h['$CM_TITLE'] = basename
@@ -117,6 +118,8 @@ module MultiStage
 
     def self.image_dimension(path)
       pixs = Dimensions.dimensions(path)
+      raise "Can not get image size from #{path}. Specify GIF, PNG, JPEG and TIFF images." if pixs.nil?
+      pixs
     end
     
     def self.load(path, opts = {})
@@ -311,6 +314,16 @@ module MultiStage
         if m = /SM_SCAN_ROTATION (\d+)/.match(line)
           h[:scan_rotation] = m[1].to_f          
         end
+
+        if m = /SIF_CM_STAGE_X/.match(line)
+          vals = line.split
+          h[:stage_x_in_um] = vals[1].to_f * 1000       
+        end
+        if m = /SIF_CM_STAGE_Y/.match(line)
+          vals = line.split
+          h[:stage_y_in_um] = vals[1].to_f * 1000       
+        end
+
       end
       return h
     end
@@ -325,6 +338,12 @@ module MultiStage
       lines = textfile2array(path)
       h = parse_sem_info(lines.join("\n"))
       width_in_um = 12.0 * 10 * 1000 / h[:magnification]
+      unless (h[:height_in_pix] && h[:width_in_pix])
+        raise "no image dimenstion" unless (opts[:image_path])
+        pixs = self.image_dimension(opts[:image_path])
+        h[:width_in_pix] = pixs[0]
+        h[:height_in_pix] = pixs[1]
+      end
       height_in_um = h[:height_in_pix] * width_in_um / h[:width_in_pix]
       pixels_per_um = h[:width_in_pix] / width_in_um
       center_on_stage = [h[:stage_x_in_um], h[:stage_y_in_um]]

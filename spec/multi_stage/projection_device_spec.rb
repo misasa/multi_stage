@@ -34,6 +34,19 @@ module MultiStage
 			end
         end
 
+		describe "#run with bmp" do
+			subject { cui.run }
+			let(:args){ [ image_path ] }
+			let(:image_path) { 'tmp/anc1.bmp' }
+			before(:each) do
+                setup_empty_dir('tmp')
+				setup_file(image_path)
+			end
+			it "raise error" do
+				expect{subject}.to raise_error
+			end
+        end        
+
 		describe "#run with invalid path" do
 			subject { cui.run }
 			let(:args){ [ image_path ] }

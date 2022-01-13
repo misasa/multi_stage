@@ -26,6 +26,19 @@ module MultiStage
         setup_file(txt_path)
       end
 
+      context "with imajeoletry file of SEM-supporter", :current => true do
+        let(:txt_path){ 'tmp/sem-supporter.txt' }
+        let(:image_path){ 'tmp/sem-supporter.jpg' }
+        let(:opts){ {:image_path => image_path} }
+        before(:each) do
+          setup_file(image_path)
+        end  
+        it "returns instance of Image" do
+          from_sem_info.instance_variable_get(:@affine_imagexy2world)
+          from_sem_info.should be_an_instance_of(Image)
+        end
+      end
+
       context "without origin" do
         it "returns instance of Image" do
           p from_sem_info.instance_variable_get(:@affine_imagexy2world)

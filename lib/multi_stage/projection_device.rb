@@ -23,6 +23,7 @@ module MultiStage
       imajeoletryfile, is created by JEOL JSM-7001F or JSM-8530F.
       When you need an image-info file for images obtained by machines
       besides JEOL JSM-7001F or JSM-8530F, call this program.
+      This program currently supports GIF, PNG, JPEG and TIFF images.
   
   EXAMPLE
       > ls

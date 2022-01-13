@@ -14,7 +14,7 @@ NAME
     #{opts.program_name} - Generate imageometryfile to project imagefile onto VS space
 
 SYNOPSIS AND USAGE
-    #{opts.program_name} [options] IMAJEOLETRYFILE
+    #{opts.program_name} [options] IMAGEFILE
 
 DESCRIPTION
     Generate imageometryfile to project imagefile onto VS space.
@@ -42,6 +42,8 @@ DESCRIPTION
     When you locate an image obtained by SEM onto a new surface (without
     alignment), call this program with stageometry [-1,0,0;0,-1,0;0,0,1].
 
+    This program currently supports GIF, PNG, JPEG and TIFF images.
+
 EXAMPLE
     SIMS> ls
     cniso-mtx-c53-1s1@6065.jpg cniso-mtx-c53-1s1@6065.txt
@@ -52,12 +54,12 @@ EXAMPLE
     $CM_STAGE_POS 2.044 0.704 10.2 11.0 0.0 0
     $$SM_SCAN_ROTATION 10.00
     SIMS> vs-get-affine -f yaml > stage-of-VS1280@surface-mnt-C0053-1-s1.geo
-    SIMS> projection-map cniso-mtx-c53-1s1@6065.txt -a stage-of-VS1280@surface-mnt-C0053-1-s1.geo --stage-origin ld
+    SIMS> projection-map cniso-mtx-c53-1s1@6065.jpg -a stage-of-VS1280@surface-mnt-C0053-1-s1.geo --stage-origin ld
     $ ls
     cniso-mtx-c53-1s1@6065.jpg cniso-mtx-c53-1s1@6065.txt cniso-mtx-c53-1s1@6065.geo stage-of-VS1280@surface-mnt-C0053-1-s1.geo
     SIMS> orochi-upload --surface_id=${SURFACEID} --layer=${LAYERNAME} --refresh-tile cniso-mtx-c53-1s1@6065.jpg
     
-    SEM> projection-map -m -1,0,0,0,-1,0,0,0,1 cniso-mtx-c53-1s1@6065.txt
+    SEM> projection-map -m -1,0,0,0,-1,0,0,0,1 cniso-mtx-c53-1s1@6065.jpg
 
 SEE ALSO
     projection-device in [gem package -- multi_stage](https://gitlab.misasa.okayama-u.ac.jp/gems/multi_stage)
@@ -117,8 +119,14 @@ EOS
         exit
       end
 
-      image_info_path = argv[0]
-
+      if File.extname(argv[0]) == ".txt"
+        raise "Specify imagefile insted of imajeoletryfile"
+      end
+      image_path = argv[0]
+      dir_name = File.dirname(image_path)
+      base_name = File.basename(image_path, ".*")
+      image_info_path = File.join(dir_name, base_name + ".txt")
+      
       if params[:affine_file]
         affine_array = YAML.load_file(params[:affine_file])
         if affine_array.is_a?(Hash)
@@ -151,6 +159,7 @@ EOS
       opts = {}
       opts[:origin] = params[:stage_origin]
       opts[:affine_in_string] = true
+      opts[:image_path] = image_path
       MultiStage::Image.from_sem_info(image_info_path, affine, opts)
     end
   end
