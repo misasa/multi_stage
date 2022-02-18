@@ -7,7 +7,7 @@ See also `image-warp` in [python package -- image_mosaic](https://github.com/mis
 
 # Dependency
 
-## [gem package -- opencvtool](https://gitlab.misasa.okayama-u.ac.jp/gems/opencvtool)
+## [gem package -- opencvtool](https://github.com/misasa/opencvtool)
 
 # Installation
 
