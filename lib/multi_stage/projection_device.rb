@@ -46,9 +46,9 @@ module MultiStage
       $$SM_SCAN_ROTATION 10.00
 
   SEE ALSO
-      projection-map in [gem package -- multi_stage](https://gitlab.misasa.okayama-u.ac.jp/gems/multi_stage)
+      projection-map in [gem package -- multi_stage](https://github.com/misasa/multi_stage)
       image-scalebar in [gem package -- scalebar](https://github.com/misasa/scalebar)
-      https://gitlab.misasa.okayama-u.ac.jp/gems/multi_stage/blob/master/lib/multi_stage/projection_device.rb
+      https://github.com/misasa/multi_stage/blob/master/lib/multi_stage/projection_device.rb
   
   IMPLEMENTATION
       Copyright (c) 2012-2021 Okayama University

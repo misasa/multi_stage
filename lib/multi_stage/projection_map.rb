@@ -62,12 +62,12 @@ EXAMPLE
     SEM> projection-map -m -1,0,0,0,-1,0,0,0,1 cniso-mtx-c53-1s1@6065.jpg
 
 SEE ALSO
-    projection-device in [gem package -- multi_stage](https://gitlab.misasa.okayama-u.ac.jp/gems/multi_stage)
+    projection-device in [gem package -- multi_stage](https://github.com/misasa/multi_stage)
     orochi-upload in [gem package -- orochi-for-medusa](https://github.com/misasa/orochi-for-medusa)
-    vs-get-affine in [gem package -- vstool](https://gitlab.misasa.okayama-u.ac.jp/gems/vstool)
-    vs-attach-image in [gem package -- vstool](https://gitlab.misasa.okayama-u.ac.jp/gems/vstool)
+    vs-get-affine in [gem package -- vstool](https://github.com/misasa/vstool)
+    vs-attach-image in [gem package -- vstool](https://github.com/misasa/vstool)
     vs_attach_image.m in [matlab script -- VisualSpots](http://multimed.misasa.okayama-u.ac.jp/repository/matlab)
-    https://gitlab.misasa.okayama-u.ac.jp/gems/multi_stage/blob/master/lib/multi_stage/projection_map.rb
+    https://github.com/misasa/multi_stage/blob/master/lib/multi_stage/projection_map.rb
 
 IMPLEMENTATION
     Copyright (c) 2012-2021 Okayama University
