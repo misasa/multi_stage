@@ -44,22 +44,24 @@ DESCRIPTION
 
     This program currently supports GIF, PNG, JPEG and TIFF images.
 
+    Run this command from CMD.exe instead of shell provided by MSYS2. 
+
 EXAMPLE
-    SIMS> ls
+    CMD@SIMS> ls
     cniso-mtx-c53-1s1@6065.jpg cniso-mtx-c53-1s1@6065.txt
-    SIMS> cat cniso-mtx-c53-1s1@6065.txt
+    CMD@SIMS> cat cniso-mtx-c53-1s1@6065.txt
     $CM_MAG 150
     $CM_TITLE cniso-mtx-c53-1s1@6065
     $CM_FULL_SIZE 1280 960
     $CM_STAGE_POS 2.044 0.704 10.2 11.0 0.0 0
     $$SM_SCAN_ROTATION 10.00
-    SIMS> vs-get-affine -f yaml > stage-of-VS1280@surface-mnt-C0053-1-s1.geo
-    SIMS> projection-map cniso-mtx-c53-1s1@6065.jpg -a stage-of-VS1280@surface-mnt-C0053-1-s1.geo --stage-origin ld
+    CMD@SIMS> vs-get-affine -f yaml > stage-of-VS1280@surface-mnt-C0053-1-s1.geo
+    CMD@SIMS> projection-map cniso-mtx-c53-1s1@6065.jpg -a stage-of-VS1280@surface-mnt-C0053-1-s1.geo --stage-origin ld
     $ ls
     cniso-mtx-c53-1s1@6065.jpg cniso-mtx-c53-1s1@6065.txt cniso-mtx-c53-1s1@6065.geo stage-of-VS1280@surface-mnt-C0053-1-s1.geo
-    SIMS> orochi-upload --surface_id=${SURFACEID} --layer=${LAYERNAME} --refresh-tile cniso-mtx-c53-1s1@6065.jpg
+    CMD@SIMS> orochi-upload --surface_id=${SURFACEID} --layer=${LAYERNAME} --refresh-tile cniso-mtx-c53-1s1@6065.jpg
     
-    SEM> projection-map -m -1,0,0,0,-1,0,0,0,1 cniso-mtx-c53-1s1@6065.jpg
+    CMD@SEM> projection-map -m -1,0,0,0,-1,0,0,0,1 cniso-mtx-c53-1s1@6065.jpg
 
 SEE ALSO
     projection-device in [gem package -- multi_stage](https://github.com/misasa/multi_stage)
@@ -70,7 +72,7 @@ SEE ALSO
     https://github.com/misasa/multi_stage/blob/master/lib/multi_stage/projection_map.rb
 
 IMPLEMENTATION
-    Copyright (c) 2012-2021 Okayama University
+    Copyright (c) 2012-2024 Okayama University
   License GPLv3+: GNU GPL version 3 or later
 
 HISTORY
